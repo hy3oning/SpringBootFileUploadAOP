@@ -69,8 +69,6 @@ button {
 			<div class="form-group">
 				<label for="description">상품설명</label>
 				<textarea id="description" name="description" rows="5" cols="20"></textarea>
-
-
 			</div>
 
 			<div class="btn-area">

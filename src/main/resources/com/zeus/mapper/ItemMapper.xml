@@ -3,22 +3,39 @@
 <mapper namespace="com.zeus.mapper.ItemMapper">
 
 	<insert id="create" parameterType="Item">
-		INSERT INTO ITEM(ID,NAME,PRICE,DESCRIPTION,URL)VALUES(ITEM_SEQ.NEXTVAL,#{name},#{price},#{description},#{url})
+		INSERT INTO
+		ITEM(ID,NAME,PRICE,DESCRIPTION,URL)VALUES(ITEM_SEQ.NEXTVAL,#{name},#{price},#{description},#{url})
 	</insert>
 
 	<select id="read" resultType="Item">
+		SELECT
+		ID,NAME,PRICE,DESCRIPTION,URL FROM ITEM WHERE ID = #{id}
 	</select>
 
 	<select id="list" resultType="Item">
+		SELECT * FROM ITEM ORDER BY ID DESC
 	</select>
 
-	<update id="update">
+	<update id="update" parameterType="Item">
+		UPDATE ITEM
+		<set>
+			NAME = #{name},
+			PRICE = #{price},
+			DESCRIPTION = #{description},
+			URL
+			= #{url}
+		</set>
+		WHERE ID = #{id}
 	</update>
 
 	<delete id="delete">
+		DELETE FROM ITEM
+		WHERE ID = #{id}
 	</delete>
 
 	<select id="getPicture" resultType="String">
+		SELECT URL FROM ITEM WHERE ID
+		= #{id}
 	</select>
 
 </mapper>

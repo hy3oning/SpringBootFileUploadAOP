@@ -14,7 +14,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private ItemMapper itemMapper;
-	
+
 	@Override
 	@Transactional
 	public int create(Item item) throws Exception {
@@ -22,28 +22,33 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
+	@Transactional
 	public int update(Item item) throws Exception {
-		return 0;
+		return itemMapper.update(item);
 	}
 
 	@Override
+	@Transactional
 	public int delete(Item item) throws Exception {
-		return 0;
+		return itemMapper.delete(item);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Item read(Item item) throws Exception {
-		return null;
+		return itemMapper.read(item);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Item> list() throws Exception {
-		return null;
+		return itemMapper.list();
 	}
 
 	@Override
+	@Transactional
 	public String getPicture(Item item) throws Exception {
-		return null;
+		return itemMapper.getPicture(item);
 	}
 
 }

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
@@ -7,107 +7,120 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 수정</title>
+<title>상품 수정</title>
 
 <style>
 .container {
-    width: 500px;
-    margin: 20px auto;
+	width: 500px;
+	margin: 20px auto;
 }
 
 .form-group {
-    margin-bottom: 15px;
+	margin-bottom: 15px;
 }
 
 label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
 }
 
 input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
+input[type="password"],
+input[type="file"] {
+	width: 100%;
+	padding: 8px;
+	box-sizing: border-box;
 }
 
 .btn-area {
-    text-align: right;
-    margin-top: 20px;
+	text-align: right;
+	margin-top: 20px;
 }
 
 button {
-    padding: 10px 20px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
+	padding: 10px 20px;
+	cursor: pointer;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 4px;
 }
 
 button[type="reset"] {
-    background-color: #6c757d;
+	background-color: #6c757d;
+}
+
+img {
+	display: block;
+	margin-top: 10px;
+	max-width: 100%;
+	height: auto;
+	border-radius: 4px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h2>${member.name} 님 정보 수정</h2>
+	<div class="container">
+		<h2>${item.name} 상품 정보 수정</h2>
 
-    <!-- 수정 폼 시작 -->
-    <form:form modelAttribute="member" action="/member/update" method="post">
+		<!-- 수정 폼 시작 -->
+		<form:form modelAttribute="item"
+			action="/item/update"
+			method="post"
+			enctype="multipart/form-data">
 
-        <!-- 회원 번호 -->
-        <div class="form-group">
-            <label>회원번호</label>
-            <form:input path="no" readonly="true"/>
-        </div>
+			<!-- 상품 ID -->
+			<div class="form-group">
+				<label>상품 아이디</label>
+				<form:input path="id" readonly="true" />
+			</div>
 
-        <!-- ID -->
-        <div class="form-group">
-            <label>ID</label>
-            <form:input path="id"/>
-        </div>
+			<!-- 상품명 -->
+			<div class="form-group">
+				<label>상품명</label>
+				<form:input path="name" required="required" />
+			</div>
 
-        <!-- 비밀번호 -->
-        <div class="form-group">
-            <label>PASSWORD</label>
-            <form:password path="pw" placeholder="변경 시에만 입력"/>
-        </div>
+			<!-- 상품 가격 -->
+			<div class="form-group">
+				<label>상품 가격</label>
+				<form:input path="price" />
+			</div>
 
-        <!-- 이름 -->
-        <div class="form-group">
-            <label>NAME</label>
-            <form:input path="name" readonly="true"/>
-        </div>
+			<!-- 상품 이미지 -->
+			<div class="form-group">
+				<label for="picture">상품 이미지</label>
 
-        <!-- 권한 목록 -->
-        <div class="form-group">
-            <label>권한</label>
+				<!-- 기존 이미지 출력 -->
+				<c:if test="${not empty item.id}">
+					<img alt="상품 이미지"
+						src="/item/display?id=${item.id}" />
+				</c:if>
 
-            <c:forEach items="${member.authList}" var="auth" varStatus="status">
-                <form:select path="authList[${status.index}].auth">
-                    <form:option value="ROLE_USER" label="사용자"/>
-                    <form:option value="ROLE_MEMBER" label="회원"/>
-                    <form:option value="ROLE_ADMIN" label="관리자"/>
-                </form:select>
-            </c:forEach>
+				<!-- 새 이미지 업로드 -->
+				<input type="file" name="picture" />
+			</div>
 
-        </div>
+			<!-- 상품 설명 -->
+			<div class="form-group">
+				<label>DESCRIPTION</label>
+				<form:textarea path="description" rows="4" />
+			</div>
 
-        <!-- 버튼 영역 -->
-        <div class="btn-area">
-            <button type="submit">수정 등록</button>
-            <button type="reset">수정 취소</button>
-        </div>
+			<!-- 버튼 영역 -->
+			<div class="btn-area">
+				<button type="submit">수정 등록</button>
+				<button type="reset">수정 취소</button>
+				<a href="/item/list">돌아가기</a>
+			</div>
 
-    </form:form>
-    <!-- 수정 폼 끝 -->
+		</form:form>
+		<!-- 수정 폼 끝 -->
 
-</div>
+	</div>
 
 </body>
 </html>
