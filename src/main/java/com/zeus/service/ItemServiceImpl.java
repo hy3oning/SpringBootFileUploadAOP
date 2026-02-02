@@ -14,7 +14,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private ItemMapper itemMapper;
-	
+
 	@Override
 	@Transactional
 	public int create(Item item) throws Exception {
@@ -33,7 +33,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public Item read(Item item) throws Exception {
-		return null;
+		return itemMapper.read(item);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public String getPicture(Item item) throws Exception {
-		return null;
+		return itemMapper.getPicture(item);
 	}
 
 }

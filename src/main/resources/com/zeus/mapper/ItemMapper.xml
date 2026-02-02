@@ -8,6 +8,7 @@
 	</insert>
 
 	<select id="read" resultType="Item">
+		SELECT ID,NAME,PRICE,DESCRIPTION,URL FROM ITEM WHERE ID = #{id}
 	</select>
 
 	<select id="list" resultType="Item">
@@ -21,6 +22,7 @@
 	</delete>
 
 	<select id="getPicture" resultType="String">
+	SELECT URL FROM ITEM WHERE ID = #{id}
 	</select>
 
 </mapper>
