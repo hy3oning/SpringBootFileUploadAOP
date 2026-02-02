@@ -3,6 +3,7 @@
 <mapper namespace="com.zeus.mapper.ItemMapper">
 
 	<insert id="create" parameterType="Item">
+		INSERT INTO ITEM(ID,NAME,PRICE,DESCRIPTION,URL)VALUES(ITEM_SEQ.NEXTVAL,#{name},#{price},#{description},#{url})
 	</insert>
 
 	<select id="read" resultType="Item">
