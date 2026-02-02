@@ -25,9 +25,7 @@ label {
 	font-weight: bold;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="file"] {
+input[type="text"], input[type="password"], input[type="file"] {
 	width: 100%;
 	padding: 8px;
 	box-sizing: border-box;
@@ -64,12 +62,10 @@ img {
 <body>
 
 	<div class="container">
-		<h2>${item.name} 상품 정보 수정</h2>
+		<h2>${item.name}상품 정보 수정</h2>
 
 		<!-- 수정 폼 시작 -->
-		<form:form modelAttribute="item"
-			action="/item/update"
-			method="post"
+		<form:form modelAttribute="item" action="/item/update" method="post"
 			enctype="multipart/form-data">
 
 			<!-- 상품 ID -->
@@ -96,8 +92,7 @@ img {
 
 				<!-- 기존 이미지 출력 -->
 				<c:if test="${not empty item.id}">
-					<img alt="상품 이미지"
-						src="/item/display?id=${item.id}" />
+					<img alt="상품 이미지" src="/item/display?id=${item.id}" />
 				</c:if>
 
 				<!-- 새 이미지 업로드 -->

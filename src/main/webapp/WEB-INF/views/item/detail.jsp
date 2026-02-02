@@ -157,7 +157,8 @@ body {
 		</div>
 
 		<div>
-			<img alt="상품이미지 ${item.name}" src="/item/display?id=${item.id}" width="400">
+			<img alt="상품이미지 ${item.name}" src="/item/display?id=${item.id}"
+				width="400">
 		</div>
 		<div class="btn-area">
 			<a href="/item/list" class="btn btn-list">상품 리스트</a>
