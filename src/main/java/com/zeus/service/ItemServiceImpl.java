@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zeus.domain.Item;
 import com.zeus.mapper.ItemMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ItemServiceImpl implements ItemService {
 
@@ -36,12 +39,15 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	@Transactional(readOnly = true)
 	public Item read(Item item) throws Exception {
+		log.info("ItemServiceImpl read = detail입니다.");
 		return itemMapper.read(item);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Item> list() throws Exception {
+		log.info("ItemServiceImpl list = LIST 입니다.");
+
 		return itemMapper.list();
 	}
 
