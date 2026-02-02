@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zeus.mapper.ItemMapper">
+
+	<insert id="create" parameterType="Item">
+	</insert>
+
+	<select id="read" resultType="Item">
+	</select>
+
+	<select id="list" resultType="Item">
+	</select>
+
+	<update id="update">
+	</update>
+
+	<delete id="delete">
+	</delete>
+
+	<select id="getPicture" resultType="String">
+	</select>
+
+</mapper>
