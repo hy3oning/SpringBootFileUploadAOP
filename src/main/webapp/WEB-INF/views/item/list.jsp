@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 목록</title>
+<title>상품 목록</title>
 <style>
 :root {
 	--t1-red: #E2012D;
@@ -194,14 +194,14 @@ body {
 	<div class="container">
 		<div class="header-box">
 			<h1>
-				회원 <span>목록</span>
+				상품<span>목록</span>
 			</h1>
-			<a href="/member/insertForm" class="btn-write">회원가입</a> <a
-				href="/member/memberList" class="btn-write">새로고침</a>
+			<a href="/item/createForm" class="btn-write">상품등록</a> <a
+				href="/item/list" class="btn-write">새로고침</a>
 		</div>
 
 		<div class="search-container">
-			<form action="/member/search" method="get" class="search-form">
+			<form action="/item/search" method="get" class="search-form">
 				<select name="searchType" class="search-select">
 					<option value="title">ID</option>
 					<option value="writer">NAME</option>
@@ -213,31 +213,28 @@ body {
 		<table class="t1-table">
 			<thead>
 				<tr>
-					<th width="20%">No</th>
 					<th width="20%">ID</th>
-					<th width="20%">PW</th>
 					<th width="20%">NAME</th>
-					<th width="20%">REGDATE</th>
+					<th width="20%">PRICE</th>
+					<th width="20%">URL</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:choose>
-					<c:when test="${not empty memberList}">
-						<c:forEach var="member" items="${memberList}">
+					<c:when test="${not empty itemList}">
+						<c:forEach var="item" items="${itemList}">
 							<tr>
-								<td>${member.no}</td>
+								<td>${item.id}</td>
 								<td class="title-cell"><a
-									href="/member/detail?no=${member.no}">${member.id}</a></td>
-								<td>${member.pw}</td>
-								<td>${member.name}</td>
-								<td><fmt:formatDate value="${member.regDate}"
-										pattern="yyyy.MM.dd" /></td>
+									href="/item/detail?id=${item.id}">${item.name}</a></td>
+								<td>${item.price}</td>
+								<td>${item.url}</td>
 							</tr>
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
 						<tr>
-							<td colspan="5" style="padding: 50px; color: #555;">가입된 회원이
+							<td colspan="4" style="padding: 50px; color: #555;">등록된 상품이
 								없습니다.</td>
 						</tr>
 					</c:otherwise>
@@ -246,7 +243,7 @@ body {
 		</table>
 
 		<div class="table-footer">[ SYSTEM: CONNECTED TO
-			JDBCBOARD_SEQ.NEXTVAL ]</div>
+			ITEM_SEQ.NEXTVAL ]</div>
 	</div>
 
 </body>

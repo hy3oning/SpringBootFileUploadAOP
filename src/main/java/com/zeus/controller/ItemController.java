@@ -1,6 +1,7 @@
 package com.zeus.controller;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 import org.mybatis.spring.annotation.MapperScan;
@@ -12,12 +13,14 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.zeus.domain.Item;
 import com.zeus.service.ItemService;
 
 import lombok.extern.slf4j.Slf4j;
+
 
 @Controller
 @Slf4j
@@ -49,18 +52,18 @@ public class ItemController {
 		log.info("contentType: " + file.getContentType());
 		// 3. 파일을 외장하드에 저장할것
 		String createdFileName = uploadFile(file.getOriginalFilename(), file.getBytes());
-		
+
 		// 4. 새로운 파일을 item 도메인에 저장
 		item.setUrl(createdFileName);
 		// 5. 테이블에 상품정보를 저장
 		int count = itemService.create(item);
-		if(count > 0) {
-			model.addAttribute("message","상품등록이 되었습니다.");
+		if (count > 0) {
+			model.addAttribute("message", "상품등록이 되었습니다.");
 			return "item/success";
 		}
-		model.addAttribute("message","상품등록이 실패했습니다.");
+		model.addAttribute("message", "상품등록이 실패했습니다.");
 		return "item/failed";
-		
+
 	}
 
 	private String uploadFile(String originalName, byte[] fileData) throws Exception {
@@ -74,5 +77,18 @@ public class ItemController {
 		FileCopyUtils.copy(fileData, target);
 		return createdFileName;
 	}
+
+	@GetMapping("/list")
+	public String itemList(Model model) throws Exception {
+		List<Item> itemList = itemService.list();
+		model.addAttribute("itemList", itemList);
+		return "item/list";
+	}
+	
+	@GetMapping("/detail")
+	public String getMethodName(@RequestParam String param) {
+		return new String();
+	}
+	
 
 }

@@ -51,7 +51,7 @@
 
 		<div class="btn-area">
 			<a href="/item/createForm" class="btn btn-primary">상품등록</a> <a
-				href="/item/itemList" class="btn btn-secondary">목록으로 이동</a>
+				href="/item/list" class="btn btn-secondary">목록으로 이동</a>
 		</div>
 	</div>
 

@@ -3,13 +3,15 @@
 <mapper namespace="com.zeus.mapper.ItemMapper">
 
 	<insert id="create" parameterType="Item">
-		INSERT INTO ITEM(ID,NAME,PRICE,DESCRIPTION,URL)VALUES(ITEM_SEQ.NEXTVAL,#{name},#{price},#{description},#{url})
+		INSERT INTO
+		ITEM(ID,NAME,PRICE,DESCRIPTION,URL)VALUES(ITEM_SEQ.NEXTVAL,#{name},#{price},#{description},#{url})
 	</insert>
 
 	<select id="read" resultType="Item">
 	</select>
 
 	<select id="list" resultType="Item">
+		SELECT * FROM ITEM ORDER BY ID DESC
 	</select>
 
 	<update id="update">

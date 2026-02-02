@@ -38,7 +38,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public List<Item> list() throws Exception {
-		return null;
+		return itemMapper.list();
 	}
 
 	@Override
