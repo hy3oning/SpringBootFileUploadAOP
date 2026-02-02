@@ -22,12 +22,15 @@
 			NAME = #{name},
 			PRICE = #{price},
 			DESCRIPTION = #{description},
-			URL = #{url}
+			URL
+			= #{url}
 		</set>
 		WHERE ID = #{id}
 	</update>
 
 	<delete id="delete">
+		DELETE FROM ITEM
+		WHERE ID = #{id}
 	</delete>
 
 	<select id="getPicture" resultType="String">

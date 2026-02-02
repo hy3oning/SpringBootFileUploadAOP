@@ -129,6 +129,8 @@ public class ItemController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		} finally {
+			in.close();
 		}
 		return entity;
 	}
@@ -186,6 +188,21 @@ public class ItemController {
 		}
 		File file = new File(uploadPath, fileName);
 		return (file.exists() == true) ? (file.delete()) : (false);
+	}
+
+	@GetMapping("/delete")
+	public String itemDelete(Item item, Model model) throws Exception {
+		log.info("Delete =");
+		String url = itemService.getPicture(item);
+		int count = itemService.delete(item);
+		if (count > 0) {
+			if (url != null)
+				deleteFile(url);
+			model.addAttribute("message", "삭제되었습니다.");
+			return "item/success";
+		}
+		model.addAttribute("message", "삭제되었습니다.");
+		return "item/failed";
 	}
 
 	private MediaType getMediaType(String form) {
