@@ -102,7 +102,7 @@ public class ItemController {
 
 	// 화면 요청이아닌 데이터를 보내줄것을 요청.
 	@ResponseBody
-	@RequestMapping("/display")
+	@GetMapping("/display")
 	public ResponseEntity<byte[]> itemDisplay(Item item) throws Exception {
 		log.info("itemDisplay: ");
 		// 파일을 읽기위한 스트림
@@ -131,6 +131,61 @@ public class ItemController {
 			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
 		}
 		return entity;
+	}
+
+	@GetMapping(value = "/updateForm")
+	public String itemUpdateForm(Item i, Model model) throws Exception {
+		log.info("update item" + i.toString());
+		Item item = this.itemService.read(i);
+		model.addAttribute("item", item);
+		return "item/updateForm";
+	}
+
+	@PostMapping("/update")
+	public String itemUpdate(Item item, Model model) throws Exception {
+		log.info("/update item" + item.toString());
+
+		MultipartFile file = item.getPicture();
+		String oldUrl = null; // if문 밖에서 미리 선언 (나중에 삭제할 때 사용)
+
+		// 1. 새로운 파일이 업로드되었는지 확인
+		if (file != null && file.getSize() > 0) {
+			// 기존 파일 정보를 가져옴 (삭제를 위해)
+			Item oldItem = itemService.read(item);
+			oldUrl = oldItem.getUrl();
+
+			// 새로운 파일 정보 출력 및 저장
+			log.info("New OriginalName: " + file.getOriginalFilename());
+			log.info("New Size: " + file.getSize());
+
+			String createdFileName = uploadFile(file.getOriginalFilename(), file.getBytes());
+			item.setUrl(createdFileName); // 새로운 파일명으로 업데이트
+		}
+
+		// 2. DB 업데이트 실행
+		int count = itemService.update(item);
+
+		if (count > 0) {
+			// DB 수정 성공 시에만 이전 이미지 파일을 실제로 삭제
+			if (oldUrl != null) {
+				deleteFile(oldUrl);
+			}
+			model.addAttribute("message", "상품수정 성공");
+			return "item/success";
+		}
+
+		model.addAttribute("message", "상품수정 실패");
+		return "item/failed";
+	}
+
+	// 외부저장소 자료업로드 파일명생성후 저장
+	// c:/upload/"../window/system.ini" 디렉토리 탈출공격(path tarversal)
+	private boolean deleteFile(String fileName) throws Exception {
+		if (fileName.contains("..")) {
+			throw new IllegalArgumentException("잘못된 경로 입니다.");
+		}
+		File file = new File(uploadPath, fileName);
+		return (file.exists() == true) ? (file.delete()) : (false);
 	}
 
 	private MediaType getMediaType(String form) {

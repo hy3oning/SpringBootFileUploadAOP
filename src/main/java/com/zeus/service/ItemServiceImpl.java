@@ -23,7 +23,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public int update(Item item) throws Exception {
-		return 0;
+		return itemMapper.update(item);
 	}
 
 	@Override
